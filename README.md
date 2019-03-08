@@ -1,77 +1,155 @@
-ZendSkeletonApplication
-=======================
+# Zend Expressive Application 
 
-Introduction
-------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+## Introduction
+This is a skeleton application using the Zend Framework MVC layer and module systems. It's a simple doctor appointment booking application that allows a user to do CRUD operations via REST API.
 
-Installation
-------------
+## DB Schema file
+data\appointment.sql
 
-Using Composer (recommended)
-----------------------------
-The recommended way to get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+Set Database name and host in global.php
 
-    curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
+Set Database username and password in local.php 
 
-Alternately, clone the repository and manually invoke `composer` using the shipped
-`composer.phar`:
 
-    cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
-    cd ZendSkeletonApplication
-    php composer.phar self-update
-    php composer.phar install
+## Appointment module
 
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
+Appointment module is set up as below:
+php-zend/
+     /module
+         /Appointment 
+             /config
+             /src
+                 /Appointment 
+                     /Controller
+                     /Form
+                     /Model
+             /view
+                 /appointment 
+                     /appointment 
 
-Another alternative for downloading the project is to grab it via `curl`, and
-then pass it to `tar`:
 
-    cd my/project/dir
-    curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
+## Application overview
 
-You would then invoke `composer` to install dependencies per the previous
-example.
+| Page | Description |
+| --- | --- |
+| `Home Page` | This page displays the list of appointments and provide links to edit and delete them. Also, a link to enable adding new appointments is provided. |
+| `Add new Appointment` | This page provides a form for adding a new appointment. |
+| `Edit Appointment ` | This page provides a form for editing an appointment. |
+| `Delete Appointment` | This page confirms that we want to delete an appointment and then delete it.. |
 
-Using Git submodules
---------------------
-Alternatively, you can install using native git submodules:
+## Basic URLs (without REST calls)
 
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
+| URL| Page| Action | Method called
+| --- | --- | --- | --- |
+| /appointment | Home - List of all apoointments | index | AppointmentController::indexAction
+| /appointment /add | Add new appointment | add | AppointmentController::addAction
+| /appointment /edit/1 | Edit an appointment with id=2 | edit |AppointmentController::editAction
+| /appointment /delete/2| Delete an appointment | delete |
+AppointmentController::deleteAction
 
-Web Server Setup
-----------------
 
-### PHP CLI Server
+## REST Example
 
-The simplest way to get started if you are using PHP 5.4 or above is to start the internal PHP cli-server in the root directory:
+First create a database in your local db and import data/appointment.sql file.
 
-    php -S 0.0.0.0:8080 -t public/ public/index.php
+Update username,password in local.php and update db name and host in global.php
 
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
+We publish the following URLs using curl:
 
-**Note: ** The built-in CLI server is *for development only*.
+### GET /appointment-rest
 
-### Apache Setup
+Request : 
+```http
+curl -i -H "Accept: application/json" http://localhost/appointment-rest
+```
+Response:
+```http
+HTTP/1.1 200 OK
+Date: Fri, 08 Mar 2019 05:34:57 GMT
+Server: Apache/2.4.33 (Win32) PHP/7.2.4
+X-Powered-By: PHP/7.2.4
+Content-Length: 985
+Content-Type: application/json; charset=utf-8
+{
+    "data": [
+        {
+            "id": "13",
+            "username": "Kirandeep Kaur",
+            "reason_of_visit": "regular checkup",
+            "start_time": "2019-01-01 01:00:00",
+            "end_time": "2020-01-01 01:50:00"
+        },
+        {
+            "id": "3",
+            "username": "kiran123",
+            "reason_of_visit": "Monthly-checkup",
+            "start_time": "2019-02-24 05:56:00",
+            "end_time": "2019-02-24 05:56:00"
+        },
+        {
+            "id": "4",
+            "username": "kiran123",
+            "reason_of_visit": "Lab tests go-through",
+            "start_time": "2019-02-24 05:56:00",
+            "end_time": "2019-02-24 05:56:00"
+        },
+    ]
+}
+```
 
-To setup apache, setup a virtual host to point to the public/ directory of the
-project and you should be ready to go! It should look something like below:
+### GET Particular Appointment using  /appointment-rest/3
 
-    <VirtualHost *:80>
-        ServerName zf2-tutorial.localhost
-        DocumentRoot /path/to/zf2-tutorial/public
-        SetEnv APPLICATION_ENV "development"
-        <Directory /path/to/zf2-tutorial/public>
-            DirectoryIndex index.php
-            AllowOverride All
-            Order allow,deny
-            Allow from all
-        </Directory>
-    </VirtualHost>
+Request:
+```http
+curl -i -H "Accept: application/json" http://localhost/appointment-rest/13
+```
+Response:
+```http
+HTTP/1.1 200 OK
+Date: Fri, 08 Mar 2019 05:36:19 GMT
+Server: Apache/2.4.33 (Win32) PHP/7.2.4
+X-Powered-By: PHP/7.2.4
+Content-Length: 152
+Content-Type: application/json; charset=utf-8
+{
+    "data": {
+        "id": "3",
+        "username": "kiran123",
+        "reason_of_visit": "Monthly-checkup",
+        "start_time": "2019-02-24 05:56:00",
+        "end_time": "2019-02-24 05:56:00"
+    }
+}
+```
+
+### DELETE an appointment using 
+
+Request:
+```http
+curl -i -H "Accept: application/json" -X DELETE http://localhost/appointment-rest/13
+```
+Response:
+```http
+HTTP/1.1 200 OK
+Date: Fri, 08 Mar 2019 05:38:10 GMT
+Server: Apache/2.4.33 (Win32) PHP/7.2.4
+X-Powered-By: PHP/7.2.4
+Content-Length: 18
+Content-Type: application/json; charset=utf-8
+
+{"data":"deleted"}
+```
+### POST and PUT not working properly..
+
+Request:
+```http
+curl -i -H "Accept: application/json" -X POST -d "{\"username\":\"TestValue\",\"reason_of_visit\":\"Test Value\",\"start_time\":\"2019-01-01 01:00:00\",\"end_time\":\"2019-01-01 01:00:00\"}" http://localhost/appointment-rest
+```
+
+Response:
+```http
+{"status":"error","message":"invalid data"}
+```
+
+although they work without using api calls via localhost HOME PAGE.
+###localhost/appointment
