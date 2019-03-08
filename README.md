@@ -1,4 +1,4 @@
-# Zend Expressive Application 
+# Zend CRUD using REST API 
 
 ## Introduction
 This is a skeleton application using the Zend Framework MVC layer and module systems. It's a simple doctor appointment booking application that allows a user to do CRUD operations via REST API.
@@ -44,8 +44,7 @@ php-zend/
 | /appointment | Home - List of all apoointments | index | AppointmentController::indexAction
 | /appointment /add | Add new appointment | add | AppointmentController::addAction
 | /appointment /edit/1 | Edit an appointment with id=2 | edit |AppointmentController::editAction
-| /appointment /delete/2| Delete an appointment | delete |
-AppointmentController::deleteAction
+| /appointment /delete/2| Delete an appointment | delete | AppointmentController::deleteAction
 
 
 ## REST Example
