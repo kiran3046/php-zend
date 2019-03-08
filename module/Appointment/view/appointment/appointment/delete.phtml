@@ -1,0 +1,25 @@
+<?php
+ // module/appointment/view/appointment/appointment/delete.phtml:
+
+ $title = 'Delete appointment';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+ <p>Are you sure that you want to delete
+     '<?php echo $this->escapeHtml($appointment->reason_of_visit); ?>' by
+     '<?php echo $this->escapeHtml($appointment->username); ?>'?
+ </p>
+ <?php
+ $url = $this->url('appointment', array(
+     'action' => 'delete',
+     'id'     => $this->id,
+ ));
+ ?>
+ <form action="<?php echo $url; ?>" method="post">
+ <div>
+     <input type="hidden" name="id" value="<?php echo (int) $appointment->id; ?>" />
+     <input type="submit" name="del" value="Yes" />
+     <input type="submit" name="del" value="No" />
+ </div>
+ </form>

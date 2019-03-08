@@ -1,0 +1,138 @@
+<?php
+ $title = 'Add new Appointment';
+ $formContent='';
+ $this->headTitle($title);
+ ?>
+
+<html>
+    <head>
+      <h1 class="glow"><?php echo $this->escapeHtml($title); ?></h1>
+<style> 
+h1 {
+ text-align: center;
+ font: bold 40px Sans-Serif;
+ padding: 40px 0;
+ }
+ 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+.glow {
+  color: #444;
+  text-shadow: 
+    1px 0px 1px #ccc, 0px 1px 1px #eee, 
+    2px 1px 1px #ccc, 1px 2px 1px #eee,
+    3px 2px 1px #ccc, 2px 3px 1px #eee,
+    4px 3px 1px #ccc, 3px 4px 1px #eee,
+    5px 4px 1px #ccc, 4px 5px 1px #eee,
+    6px 5px 1px #ccc, 5px 6px 1px #eee,
+    7px 6px 1px #ccc;
+}
+</style>
+</head>
+    <body>
+<table cellpadding='10'>
+<?php 
+    $form=$this->form;
+    $form->prepare();
+    $form->setAttribute('action', $this->url('appointment', array('action' => 'add')));
+    $form->setAttribute('method', 'post');
+    $form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+    
+$form->get('username')->setAttributes([
+  'class'=>'form-control', 
+  'placeholder'=>'Type Username here'
+  ]);
+  
+$form->get('reason_of_visit')->setAttributes([
+  'class'=>'form-control', 
+  'placeholder'=>'Type reason here'
+  ]);
+
+$form->get('start_time')->setAttributes([
+  'class'=>'form-control', 
+  'placeholder'=>'2020-04-02 13:03:00'
+  ]);
+  
+$form->get('end_time')->setAttributes([
+  'class'=>'form-control', 
+  'placeholder'=>'2020-04-02 13:03:00'
+  ]);
+  
+    
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+    
+echo "<tr>";
+echo "<td>";
+$name=$form->get('username');
+echo $this->formLabel($name);
+echo "</td>";
+echo "<td>";
+$name=$form->get('username');
+echo $this->formInput($form->get('username'));
+echo $this->formElementErrors()->render($name, ['class' => 'help-block']);
+echo "</td>";
+echo "</tr>";
+
+echo "<tr>";
+echo "<td>";
+$name=$form->get('reason_of_visit');
+echo $this->formLabel($name);
+echo "</td>";
+echo "<td>";
+$name=$form->get('reason_of_visit');
+echo $this->formInput($form->get('reason_of_visit'));
+echo $this->formElementErrors()->render($name, ['class' => 'help-block']);
+echo "</td>";
+echo "</tr>";
+
+echo "<tr>";
+echo "<td>";
+$name=$form->get('start_time');
+echo $this->formLabel($name);
+echo "</td>";
+echo "<td>";
+$name=$form->get('start_time');
+echo $this->formInput($form->get('start_time'));
+echo $this->formElementErrors()->render($name, ['class' => 'help-block']);
+echo "</td>";
+echo "</tr>";
+    
+echo "<tr>";
+echo "<td>";
+$name=$form->get('end_time');
+echo $this->formLabel($name);
+echo "</td>";
+echo "<td>";
+$name=$form->get('end_time');
+echo $this->formInput($form->get('end_time'));
+echo $this->formElementErrors()->render($name, ['class' => 'help-block']);
+echo "</td>";
+echo "</tr>";
+
+echo "<tr>";
+echo "<td>";
+echo "";
+echo"</td>";
+echo "<td>";
+echo $this->formSubmit($form->get('submit'));
+echo "</td>";
+echo "</tr>";
+?>
+        </table>
+</body>
+</html>
+<?php
+echo $this->form()->closeTag();
+?>
