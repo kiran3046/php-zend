@@ -6,9 +6,9 @@ This is a skeleton application using the Zend Framework MVC layer and module sys
 ## DB Schema file
 data\appointment.sql
 
-Set Database name and host in global.php
+Set Database name and host in config/autoload/global.php
 
-Set Database username and password in local.php 
+Set Database username and password in config/autoload/local.php 
 
 
 ## Appointment module
