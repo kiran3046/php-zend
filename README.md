@@ -1,7 +1,7 @@
 # Zend CRUD using REST API 
 
 ## Introduction
-This is a skeleton application using the Zend Framework MVC layer and module systems. It's a simple doctor appointment booking application that allows a user to do CRUD operations via REST API.
+This is a skeleton application using the Zend Framework (2.4) MVC layer and module systems. It's a simple doctor appointment booking application that allows a user to do CRUD operations via REST API.
 
 ## DB Schema file
 data\appointment.sql
