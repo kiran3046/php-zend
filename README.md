@@ -153,4 +153,5 @@ Response:
 ```
 
 although they work without using api calls via localhost HOME PAGE.
-###localhost/appointment
+
+### localhost/appointment
