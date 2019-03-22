@@ -14,6 +14,8 @@ Set Database username and password in config/autoload/local.php
 ## Appointment module
 
 Appointment module is set up as below:
+
+```text
 php-zend/
      /module
          /Appointment 
@@ -27,7 +29,7 @@ php-zend/
                  /appointment 
                      /appointment 
 
-
+```
 ## Application overview
 
 | Page | Description |
